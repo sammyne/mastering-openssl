@@ -1,8 +1,8 @@
 #include <iostream>
-#include <iomanip>
-#include <sstream>
 
 #include <openssl/sha.h>
+
+#include "hex.h"
 
 using namespace std;
 
@@ -13,18 +13,19 @@ int main()
   SHA256_CTX sha256;
   SHA256_Init(&sha256);
 
-  const string str = "hello-world";
+  const string msg = "";
 
-  SHA256_Update(&sha256, str.c_str(), str.size());
+  SHA256_Update(&sha256, msg.c_str(), msg.size());
   SHA256_Final(hash, &sha256);
 
-  stringstream ss;
-  for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
-  {
-    ss << hex << setw(2) << setfill('0') << (int)hash[i];
-  }
+  const string expect = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
-  cout << ss.str() << endl;
+  string got = encoding::hexlify(hash, SHA256_DIGEST_LENGTH);
+  if (got != expect)
+  {
+    cout << "invalid digest: got " << got << ", expect " << expect << endl;
+  }
+  cout << "SHA256: PASS" << endl;
 
   return 0;
 }
