@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include <openssl/ec.h>
 #include <openssl/ecdsa.h>
@@ -7,14 +8,18 @@
 #include <openssl/sha.h>
 
 using namespace std;
+using defer = shared_ptr<void>;
 
 const string APP = "[ECDSA: Digest Sign and Verify]";
 
 void report()
 {
   auto err = ERR_get_error();
-  cout << "code = " << err << endl;
-  cout << ERR_reason_error_string(err) << endl;
+  if (err)
+  {
+    cout << "code = " << err << endl;
+    cout << ERR_reason_error_string(err) << endl;
+  }
 }
 
 // SHA3 isn't supported
@@ -26,15 +31,11 @@ EVP_PKEY *generateKey()
 
   if (1 != EC_KEY_generate_key(key))
   {
-    cout << "failed to generate key" << endl;
-    report();
     return nullptr;
   }
 
   if (1 != EC_KEY_check_key(key))
   {
-    cout << "the generated key is invalid" << endl;
-    report();
     return nullptr;
   }
 
@@ -73,14 +74,12 @@ int verify(unsigned char *sig, size_t sigLen, const string message,
 
   if (1 != EVP_DigestVerifyInit(ctx, nullptr, EVP_sha256(), nullptr, pkey))
   {
-    report();
     return 0;
   }
 
   auto tbs = (const unsigned char *)(message.c_str());
   if (1 != EVP_DigestVerify(ctx, sig, sigLen, tbs, message.size()))
   {
-    report();
     return 0;
   }
 
@@ -92,36 +91,36 @@ int main()
   ERR_load_crypto_strings();
 
   auto pkey = generateKey();
+  if (nullptr == pkey)
+  {
+    EVP_PKEY_free(pkey);
+    return -1;
+  }
 
   const string message = "";
 
-  auto sig = new unsigned char[EVP_PKEY_size(pkey)];
+  auto sig = new unsigned char[EVP_PKEY_size(pkey) * 2];
   size_t sigLen;
+
+  defer _(nullptr, [&](...) {
+    delete[] sig;
+    EVP_PKEY_free(pkey);
+    ERR_free_strings();
+
+    report();
+  });
 
   if (1 != sign(sig, &sigLen, message, pkey))
   {
-    cout << "failed to sign" << endl;
-    delete[] sig;
-    EVP_PKEY_free(pkey);
-
-    report();
     return -1;
   }
 
   if (1 != verify(sig, sigLen, message, pkey))
   {
-    cout << "failed to verify" << endl;
-    delete[] sig;
-    EVP_PKEY_free(pkey);
-    report();
     return -1;
   }
 
   cout << APP << ": PASSED" << endl;
-
-  delete[] sig;
-  EVP_PKEY_free(pkey);
-  ERR_free_strings();
 
   return 0;
 }
