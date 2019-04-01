@@ -11,28 +11,23 @@ AUX_SOURCE_DIRECTORY(./encoding ENCODING)
 
 ADD_LIBRARY(encoding SHARED ${ENCODING})
 
-## sha
+SET(MODULES 
+  ${PROJECT_SOURCE_DIR}/sha 
+  ${PROJECT_SOURCE_DIR}/evp 
+)
 
-# SHA256
-ADD_EXECUTABLE(sha256 sha/main.cpp)
-TARGET_LINK_LIBRARIES(sha256 crypto encoding)
+FOREACH( m ${MODULES} )
+  FILE(GLOB SOURCES ${m}/*.cpp)  
 
-## END sha
+  # extra the module prefix
+  GET_FILENAME_COMPONENT( mp ${m} NAME )
 
-## evp
+  FOREACH( src ${SOURCES} )
+    GET_FILENAME_COMPONENT( out ${src} NAME_WE )
+    SET(out ${mp}_${out})
 
-FILE(GLOB EVP_SOURCES evp/*.cpp)
+    ADD_EXECUTABLE( ${out} ${src} )
+    TARGET_LINK_LIBRARIES(${out} crypto encoding)
+  ENDFOREACH( src )
 
-FOREACH( src ${EVP_SOURCES} )
-  GET_FILENAME_COMPONENT( out ${src} NAME_WE )
-  SET(out evp_${out})
-
-  ADD_EXECUTABLE( ${out} ${src} )
-  TARGET_LINK_LIBRARIES(${out} crypto encoding)
-ENDFOREACH( src )
-
-# SHA3-256
-#ADD_EXECUTABLE(evp_sha3_256 evp/sha3_256.cpp)
-#TARGET_LINK_LIBRARIES(evp_sha3_256 crypto encoding)
-
-## END evp
+ENDFOREACH( m )
