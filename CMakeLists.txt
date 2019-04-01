@@ -4,7 +4,7 @@ PROJECT (openssl-hello-world)
 
 INCLUDE_DIRECTORIES(
   /usr/include
-  ./include
+  ${PROJECT_SOURCE_DIR}/include
 )
 
 AUX_SOURCE_DIRECTORY(./encoding ENCODING)
