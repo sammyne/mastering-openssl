@@ -12,22 +12,31 @@ AUX_SOURCE_DIRECTORY(./encoding ENCODING)
 ADD_LIBRARY(encoding SHARED ${ENCODING})
 
 SET(MODULES 
-  ${PROJECT_SOURCE_DIR}/sha 
-  ${PROJECT_SOURCE_DIR}/evp 
+  ${PROJECT_SOURCE_DIR}/crypto 
 )
 
 FOREACH( m ${MODULES} )
-  FILE(GLOB SOURCES ${m}/*.cpp)  
+  GET_FILENAME_COMPONENT( moduleName ${m} NAME )
+  #MESSAGE( "* ${moduleName}" )
 
-  # extra the module prefix
-  GET_FILENAME_COMPONENT( mp ${m} NAME )
+  FILE(GLOB submodules ${m}/*)  
+  FOREACH( sub ${submodules} )
+    #MESSAGE( "-- ${sub}")
 
-  FOREACH( src ${SOURCES} )
-    GET_FILENAME_COMPONENT( out ${src} NAME_WE )
-    SET(out ${mp}_${out})
+    GET_FILENAME_COMPONENT( submoduleName ${sub} NAME )
+    #MESSAGE( "--- ${submoduleName}")
 
-    ADD_EXECUTABLE( ${out} ${src} )
-    TARGET_LINK_LIBRARIES(${out} crypto encoding)
-  ENDFOREACH( src )
+    FILE(GLOB sources ${sub}/*)  
+    FOREACH( src ${sources} )
+
+      GET_FILENAME_COMPONENT( out ${src} NAME_WE )
+      SET(out ${moduleName}_${submoduleName}_${out})
+      #MESSAGE(${out})
+
+      ADD_EXECUTABLE( ${out} ${src} )
+      TARGET_LINK_LIBRARIES(${out} crypto encoding)
+    ENDFOREACH( src )
+
+  ENDFOREACH( sub )
 
 ENDFOREACH( m )
