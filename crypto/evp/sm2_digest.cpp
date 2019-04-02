@@ -27,7 +27,7 @@ void report()
 EVP_PKEY *generateKey()
 {
   // SECG curve over a 256 bit prime field
-  auto key = EC_KEY_new_by_curve_name(NID_secp256k1);
+  auto key = EC_KEY_new_by_curve_name(NID_sm2);
 
   if (1 != EC_KEY_generate_key(key))
   {
@@ -91,19 +91,18 @@ int main()
   ERR_load_crypto_strings();
 
   auto pkey = generateKey();
-  defer _(nullptr, [&](...) {
-    EVP_PKEY_free(pkey);
-    ERR_free_strings();
+  //defer _(nullptr, [&](...) {
+  //  EVP_PKEY_free(pkey);
+  //  ERR_free_strings();
 
-    report();
-  });
+  //  report();
+  //});
 
   if (nullptr == pkey)
   {
     return -1;
   }
 
-  /*
   const string message = "";
 
   auto sig = new unsigned char[EVP_PKEY_size(pkey) * 2];
@@ -126,7 +125,6 @@ int main()
   {
     return -1;
   }
-  */
 
   cout << APP << ": PASSED" << endl;
 
