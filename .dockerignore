@@ -1,0 +1,8 @@
+
+# vs-code 
+.vscode/
+
+# CMake 
+build/
+
+.gitignore 
