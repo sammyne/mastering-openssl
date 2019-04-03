@@ -3,9 +3,11 @@ cmake_minimum_required(VERSION 3.12)
 PROJECT (openssl-hello-world)
 
 SET(SSL /usr/local/ssl)
+SET(CODEC ${PROJECT_SOURCE_DIR}/3rd_party/cppcodec)
 
 #  /usr/include
 INCLUDE_DIRECTORIES(
+  ${CODEC}
   ${SSL}/include
   ${PROJECT_SOURCE_DIR}/include
 )
