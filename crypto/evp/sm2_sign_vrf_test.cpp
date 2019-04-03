@@ -74,11 +74,6 @@ EVP_PKEY *generateKey()
 
   EC_KEY_set_public_key(key, pub);
 
-  //if (1 != EC_KEY_generate_key(key))
-  //{
-  //  return nullptr;
-  //}
-
   if (1 != EC_KEY_check_key(key))
   {
     cout << "hello" << endl;
@@ -97,16 +92,14 @@ EVP_PKEY *generateKey()
 
   delete[] x;
 
-  BN_free(prv);
-  EC_KEY_free(key);
+  //BN_free(prv);
+  //EC_KEY_free(key);
+  //return nullptr;
 
-  /*
   EVP_PKEY *pkey = EVP_PKEY_new();
   EVP_PKEY_assign_EC_KEY(pkey, key);
 
   return pkey;
-  */
-  return nullptr;
 }
 
 int sign(unsigned char *sig, size_t *sigLen, const string message,
@@ -114,16 +107,18 @@ int sign(unsigned char *sig, size_t *sigLen, const string message,
 {
   // message digest
   EVP_MD_CTX *ctx = EVP_MD_CTX_new();
-  if (1 != EVP_DigestSignInit(ctx, nullptr, EVP_sha256(), nullptr, pkey))
+  //if (1 != EVP_DigestSignInit(ctx, nullptr, EVP_sha256(), nullptr, pkey))
+  if (1 != EVP_DigestSignInit(ctx, nullptr, EVP_sm3(), nullptr, pkey))
   {
-    report();
+    //report();
+    cout << "1" << endl;
     return -1;
   }
 
   auto data = (const unsigned char *)(message.c_str());
   if (1 != EVP_DigestSign(ctx, sig, sigLen, data, message.size()))
   {
-    report();
+    //report();
     return -1;
   }
 
@@ -136,7 +131,7 @@ int verify(unsigned char *sig, size_t sigLen, const string message,
   // message digest
   EVP_MD_CTX *ctx = EVP_MD_CTX_new();
 
-  if (1 != EVP_DigestVerifyInit(ctx, nullptr, EVP_sha256(), nullptr, pkey))
+  if (1 != EVP_DigestVerifyInit(ctx, nullptr, EVP_sm3(), nullptr, pkey))
   {
     return 0;
   }
@@ -150,7 +145,7 @@ int verify(unsigned char *sig, size_t sigLen, const string message,
   return 1;
 }
 
-int main0()
+int main()
 {
   ERR_load_crypto_strings();
 
@@ -162,10 +157,10 @@ int main0()
   //  report();
   //});
 
-  if (nullptr == pkey)
-  {
-    return -1;
-  }
+  //if (nullptr == pkey)
+  //{
+  //  return -1;
+  //}
 
   const string message = "message digest";
 
@@ -185,6 +180,8 @@ int main0()
     return -1;
   }
 
+  cout << "hello" << endl;
+
   if (1 != verify(sig, sigLen, message, pkey))
   {
     return -1;
@@ -195,13 +192,13 @@ int main0()
   return 0;
 }
 
-int main()
+int main0()
 {
   ERR_load_crypto_strings();
 
   auto pkey = generateKey();
 
-  report();
+  //report();
 
   EVP_PKEY_free(pkey);
   ERR_free_strings();
