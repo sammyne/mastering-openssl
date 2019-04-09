@@ -50,9 +50,7 @@ auto newCtx()
 
   auto method = TLS_client_method(); /* Create new client-method instance */
 
-  auto delCtx = [](SSL_CTX *ctx) {
-    SSL_CTX_free(ctx); /* release context */
-  };
+  auto delCtx = [](SSL_CTX *ctx) { SSL_CTX_free(ctx); /* release context */ };
 
   /* Create new context */
   unique_ptr<SSL_CTX, decltype(delCtx)> ctx(SSL_CTX_new(method), delCtx);
@@ -61,6 +59,8 @@ auto newCtx()
     ERR_print_errors_fp(stderr);
     abort();
   }
+
+  SSL_CTX_set_ciphersuites(ctx.get(), "TLS_AES_128_GCM_SHA256");
 
   return ctx;
 }
@@ -104,6 +104,7 @@ int main(int argc, char *strings[])
   unique_ptr<SSL, decltype(delSSL)> ssl(SSL_new(ctx.get()), delSSL);
   /* attach the socket descriptor */
   SSL_set_fd(ssl.get(), server);
+  //SSL_set_ciphersuites(ssl.get(), "TLS_AES_128_GCM_SHA256");
   if (SSL_connect(ssl.get()) == FAIL) /* perform the connection */
   {
     ERR_print_errors_fp(stderr);
