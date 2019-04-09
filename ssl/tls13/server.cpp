@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include <errno.h>
 #include <unistd.h>
@@ -17,10 +18,8 @@ using namespace std;
 const int FAIL = -1;
 
 // Create the SSL socket and intialize the socket address structure
-//int OpenListener(int port)
 int dial(const int port)
 {
-  //int sd;
   struct sockaddr_in addr;
 
   bzero(&addr, sizeof(addr));
@@ -34,6 +33,7 @@ int dial(const int port)
     perror("can't bind port");
     abort();
   }
+
   if (listen(sd, 10) != 0)
   {
     perror("Can't configure listening port");
@@ -84,24 +84,31 @@ void loadCerts(SSL_CTX *ctx, const string cert, const string prv)
 void showCert(const SSL *ssl)
 {
   /* Get certificates (if available) */
-  auto cert = SSL_get_peer_certificate(ssl);
-  if (nullptr == cert)
+  auto delCert = [](X509 *cert) {
+    X509_free(cert);
+  };
+
+  //auto cert = SSL_get_peer_certificate(ssl);
+  unique_ptr<X509, decltype(delCert)> cert(SSL_get_peer_certificate(ssl),
+                                           delCert);
+  //if (nullptr == cert)
+  if (nullptr == cert.get())
   {
     cout << "no cert" << endl;
     return;
   }
 
-  cout << "server cert:" << endl;
+  cout << "client cert:" << endl;
 
-  auto line = X509_NAME_oneline(X509_get_subject_name(cert), 0, 0);
+  auto line = X509_NAME_oneline(X509_get_subject_name(cert.get()), 0, 0);
   cout << "Subject: " << line << endl;
   free(line);
 
-  line = X509_NAME_oneline(X509_get_issuer_name(cert), 0, 0);
+  line = X509_NAME_oneline(X509_get_issuer_name(cert.get()), 0, 0);
   cout << "Issuer: " << line << endl;
   free(line);
 
-  X509_free(cert);
+  //X509_free(cert);
 }
 
 void decode(SSL *ssl) /* Serve the connection -- threadable */
@@ -134,10 +141,6 @@ void decode(SSL *ssl) /* Serve the connection -- threadable */
   {
     ERR_print_errors_fp(stderr);
   }
-
-  auto sd = SSL_get_fd(ssl); /* get socket connection */
-  SSL_free(ssl);             /* release SSL state */
-  close(sd);                 /* close connection */
 }
 
 int main(int argc, char *argv[])
@@ -155,10 +158,17 @@ int main(int argc, char *argv[])
   // Initialize the SSL library
   SSL_library_init();
 
-  auto ctx = newCtx();                      /* initialize SSL */
-  loadCerts(ctx, "hello.pem", "hello.pem"); /* load certs */
+  /* initialize SSL */
+  auto delCtx = [](SSL_CTX *ctx) {
+    SSL_CTX_free(ctx);
+  };
+
+  unique_ptr<SSL_CTX, decltype(delCtx)> ctx(newCtx(), delCtx);
+
+  loadCerts(ctx.get(), "hello.pem", "hello.pem"); /* load certs */
 
   auto server = dial(PORT); /* create server socket */
+
   while (1)
   {
     struct sockaddr_in addr;
@@ -169,13 +179,21 @@ int main(int argc, char *argv[])
     cout << "Connection: " << inet_ntoa(addr.sin_addr) << ":"
          << ntohs(addr.sin_port) << endl;
 
-    auto ssl = SSL_new(ctx); /* get new SSL state with context */
-    SSL_set_fd(ssl, conn);   /* set connection socket to SSL state */
-    decode(ssl);             /* service connection */
+    auto delSSL = [](SSL *ssl) {
+      cout << "world" << endl;
+      auto sd = SSL_get_fd(ssl); /* get socket connection */
+      SSL_free(ssl);             /* release SSL state */
+      close(sd);                 /* close connection */
+    };
+    /* get new SSL state with context */
+    unique_ptr<SSL, decltype(delSSL)> ssl(SSL_new(ctx.get()), delSSL);
+    /* set connection socket to SSL state */
+    SSL_set_fd(ssl.get(), conn);
+    /* service connection */
+    decode(ssl.get());
   }
 
-  close(server);     /* close server socket */
-  SSL_CTX_free(ctx); /* release context */
+  close(server); /* close server socket */
 
   return 0;
 }
