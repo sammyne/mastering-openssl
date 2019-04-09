@@ -18,13 +18,14 @@ AUX_SOURCE_DIRECTORY(./encoding ENCODING)
 
 ADD_LIBRARY(encoding SHARED ${ENCODING})
 
+#${PROJECT_SOURCE_DIR}/crypto 
 SET(MODULES 
-  ${PROJECT_SOURCE_DIR}/crypto 
+  ${PROJECT_SOURCE_DIR}/ssl 
 )
 
 FOREACH( m ${MODULES} )
   GET_FILENAME_COMPONENT( moduleName ${m} NAME )
-  #MESSAGE( "* ${moduleName}" )
+  MESSAGE( "* ${moduleName}" )
 
   FILE(GLOB submodules ${m}/*)  
   FOREACH( sub ${submodules} )
@@ -33,7 +34,7 @@ FOREACH( m ${MODULES} )
     GET_FILENAME_COMPONENT( submoduleName ${sub} NAME )
     #MESSAGE( "--- ${submoduleName}")
 
-    FILE(GLOB sources ${sub}/*)  
+    FILE(GLOB sources ${sub}/*.cpp)  
     FOREACH( src ${sources} )
 
       GET_FILENAME_COMPONENT( out ${src} NAME_WE )
@@ -41,7 +42,7 @@ FOREACH( m ${MODULES} )
       #MESSAGE(${out})
 
       ADD_EXECUTABLE( ${out} ${src} )
-      TARGET_LINK_LIBRARIES(${out} crypto encoding)
+      TARGET_LINK_LIBRARIES(${out} crypto ssl encoding)
     ENDFOREACH( src )
 
   ENDFOREACH( sub )
