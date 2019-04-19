@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
     exit(0);
   }
 
-  const int PORT = 8081;
+  const int PORT = 8082;
 
   // Initialize the SSL library
   SSL_library_init();
