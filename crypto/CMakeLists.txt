@@ -1,0 +1,10 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
+
+PROJECT(crypto)
+
+SET(MODULES ec evp sha)
+
+FOREACH(m ${MODULES})
+  ADD_SUBDIRECTORY(${m})
+  MESSAGE("crypto> add ${m}")
+ENDFOREACH(m)
