@@ -11,8 +11,6 @@ INCLUDE(openssl.cmake)
 #SET(SSL /usr/local/ssl)
 SET(CODEC ${PROJECT_SOURCE_DIR}/3rd_party/cppcodec)
 
-#  /usr/include
-#  ${SSL}/include
 INCLUDE_DIRECTORIES(
   ${CODEC}
   ${OPENSSL_INCLUDE_DIRECTORIES}
