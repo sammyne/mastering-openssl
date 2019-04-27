@@ -9,5 +9,5 @@ FOREACH(d ${DEMOS})
   # MESSAGE(${out})
 
   ADD_EXECUTABLE(${out} ${d})
-  TARGET_LINK_LIBRARIES(${out} crypto encoding)
+  TARGET_LINK_LIBRARIES(${out} crypto)
 ENDFOREACH(d)

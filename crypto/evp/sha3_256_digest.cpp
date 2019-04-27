@@ -3,9 +3,10 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 
-#include "hex.h"
+#include "cppcodec/hex_lower.hpp"
 
 using namespace std;
+using hex = cppcodec::hex_lower;
 
 const string APP = "[SHA3-256-DIGEST]";
 
@@ -22,7 +23,8 @@ int main()
 
   const string expect = "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a";
 
-  string got = encoding::hexlify(md, mdLen);
+  //string got = encoding::hexlify(md, mdLen);
+  auto got = hex::encode(md, mdLen);
   if (got != expect)
   {
     cout << APP << " invalid digest: got " << got << ", expect " << expect << endl;

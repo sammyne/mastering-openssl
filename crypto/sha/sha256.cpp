@@ -2,9 +2,10 @@
 
 #include <openssl/sha.h>
 
-#include "hex.h"
+#include <cppcodec/hex_lower.hpp>
 
 using namespace std;
+using hex = cppcodec::hex_lower;
 
 int main()
 {
@@ -20,7 +21,8 @@ int main()
 
   const string expect = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
-  string got = encoding::hexlify(hash, SHA256_DIGEST_LENGTH);
+  //string got = encoding::hexlify(hash, SHA256_DIGEST_LENGTH);
+  auto got = hex::encode(hash, SHA256_DIGEST_LENGTH);
   if (got != expect)
   {
     cout << "invalid digest: got " << got << ", expect " << expect << endl;
