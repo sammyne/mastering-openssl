@@ -49,3 +49,6 @@ build/
 .vscode/
 
 *.pem
+
+# 3rd_party
+3rd_party/openssl/
