@@ -51,4 +51,4 @@ build/
 *.pem
 
 # 3rd_party
-3rd_party/openssl/
+3rd_party/
