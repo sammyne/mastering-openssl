@@ -50,5 +50,7 @@ build/
 
 *.pem
 
-# 3rd_party
-3rd_party/
+# cmake
+build/
+third-party/
+_*

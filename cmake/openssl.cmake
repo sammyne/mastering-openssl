@@ -1,13 +1,13 @@
 include(ExternalProject)
 
-### OpenSSL 1.1.1b
+# OpenSSL 1.1.1k
+# CONFIGURE_COMMAND ./config --prefix=<INSTALL_DIR> --openssldir=<INSTALL_DIR>/lib/ssl
 ExternalProject_Add(OpenSSL 
         PREFIX openssl
-        URL https://www.openssl.org/source/openssl-1.1.1b.tar.gz 
-        URL_HASH SHA256=5c557b023230413dfb0756f3137a13e6d726838ccd1430888ad15bfb2b43ea4b 
-        INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/openssl  
+        URL https://www.openssl.org/source/openssl-1.1.1k.tar.gz 
+        URL_HASH SHA256=892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5 
+        INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third-party/openssl  
         CONFIGURE_COMMAND ./config --prefix=<INSTALL_DIR> --openssldir=<INSTALL_DIR>/lib/ssl
-        no-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 
         BUILD_IN_SOURCE 1)
 
 ExternalProject_Get_Property(OpenSSL INSTALL_DIR)

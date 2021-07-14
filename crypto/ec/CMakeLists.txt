@@ -1,13 +1,14 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 
-PROJECT(ec)
+project(ec)
 
-AUX_SOURCE_DIRECTORY(./ DEMOS)
+aux_source_directory(./ DEMOS)
 
-FOREACH(d ${DEMOS})
-  GET_FILENAME_COMPONENT( out ${d} NAME_WE )
+foreach(d ${DEMOS})
+  get_filename_component( out ${d} NAME_WE )
   # MESSAGE(${out})
 
-  ADD_EXECUTABLE(${out} ${d})
-  TARGET_LINK_LIBRARIES(${out} crypto)
-ENDFOREACH(d)
+  add_executable(${out} ${d})
+  target_link_libraries(${out} crypto)
+  add_dependencies(${out} OpenSSL)
+endforeach(d)

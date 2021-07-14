@@ -1,10 +1,10 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 
-PROJECT(ssl)
+project(ssl)
 
-SET(MODULES tls13)
+set(MODULES tls13)
 
-FOREACH(m ${MODULES})
-  ADD_SUBDIRECTORY(tls13)
-  MESSAGE("ssl> add ${m}")
-ENDFOREACH(m)
+foreach(m ${MODULES})
+  add_subdirectory(tls13)
+  message("ssl> add ${m}")
+endforeach(m)

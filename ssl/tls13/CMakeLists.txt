@@ -1,9 +1,9 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 
-PROJECT(tls13)
+project(tls13)
 
-ADD_EXECUTABLE(client client.cpp)
-TARGET_LINK_LIBRARIES(client crypto ssl)
+add_executable(client client.cpp)
+target_link_libraries(client crypto ssl)
 
-ADD_EXECUTABLE(server server.cpp)
-TARGET_LINK_LIBRARIES(server crypto ssl)
+add_executable(server server.cpp)
+target_link_libraries(server crypto ssl)

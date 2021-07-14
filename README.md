@@ -1,11 +1,12 @@
-# OpenSSL Tutorial
+# OpenSSL 示例程序
 
-## Prerequisite
+##  环境依赖
 
-- openssl-1.1.1
-- openssl-devel-1.1.1
+- openssl-1.1.1k
 
-## Examples
+> 建议在 [Dockerfile](./docker/Dockerfile) 内开发测试。
+
+## 示例程序
 
 - SHA
 
