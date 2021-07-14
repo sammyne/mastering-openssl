@@ -15,5 +15,5 @@ include_directories(
 
 link_directories(${OPENSSL_LINK_DIRECTORIES})
 
-add_subdirectory(ssl)
+#add_subdirectory(ssl)
 add_subdirectory(crypto)
