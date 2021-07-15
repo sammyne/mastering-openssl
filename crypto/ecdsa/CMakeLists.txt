@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(ecdsa)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
 aux_source_directory(./ srcs)
 
 foreach(d ${srcs})

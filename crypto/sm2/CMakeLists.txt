@@ -4,7 +4,7 @@ project(ecdsa)
 
 aux_source_directory(./ srcs)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../sammyne)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 foreach(d ${srcs})
   get_filename_component( out ${d} NAME_WE )

@@ -9,8 +9,7 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 
-#include "tools/errors.h"
-#include "tools/ptr.h"
+#include "sammyne/tools.h"
 
 using namespace std;
 
