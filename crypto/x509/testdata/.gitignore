@@ -1,0 +1,7 @@
+*.db*
+
+serial.txt
+
+server.csr
+
+*.pem*

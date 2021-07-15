@@ -1,0 +1,47 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            79:dc:1c:52:b3:61:ac:6e:1f:e8:16:67:39:7d:e5:21:91:cb:46:49
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: CN=sammyne
+        Validity
+            Not Before: Jul 15 09:13:44 2021 GMT
+            Not After : Jul 15 09:13:44 2022 GMT
+        Subject: CN=sammyne-intermediate-CA
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:45:4c:4c:c6:c2:85:c3:e1:5a:f5:04:62:81:89:
+                    60:34:af:4d:c4:a4:68:29:16:be:f0:c1:10:7f:56:
+                    0b:d3:fa:72:b5:6f:0b:61:3c:77:ef:e7:b4:0b:0b:
+                    df:63:53:38:99:fa:a3:c7:40:4b:c7:0d:de:fc:bd:
+                    3d:4d:4c:ae:ad
+                ASN1 OID: secp256k1
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                8C:6D:97:75:C7:DB:C5:28:03:78:CE:E4:C1:94:77:C4:81:6A:7B:8C
+            X509v3 Authority Key Identifier: 
+                keyid:EA:F9:98:3B:FA:FA:4E:BB:F6:43:54:DC:6E:A5:D9:6F:17:65:A4:81
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment, Certificate Sign, CRL Sign
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:50:86:be:9b:75:1b:5e:e3:a0:4f:14:dc:10:66:
+         3f:21:4e:af:57:7a:46:53:ba:25:11:7a:a3:9c:ca:90:50:b3:
+         02:20:68:49:74:26:28:62:2b:5b:19:b2:20:88:30:76:7d:bf:
+         cf:63:82:ce:e6:1f:99:9b:3f:9a:dc:f4:5d:a4:b8:81
+-----BEGIN CERTIFICATE-----
+MIIBjzCCATagAwIBAgIUedwcUrNhrG4f6BZnOX3lIZHLRkkwCgYIKoZIzj0EAwIw
+EjEQMA4GA1UEAwwHc2FtbXluZTAeFw0yMTA3MTUwOTEzNDRaFw0yMjA3MTUwOTEz
+NDRaMCIxIDAeBgNVBAMMF3NhbW15bmUtaW50ZXJtZWRpYXRlLUNBMFYwEAYHKoZI
+zj0CAQYFK4EEAAoDQgAERUxMxsKFw+Fa9QRigYlgNK9NxKRoKRa+8MEQf1YL0/py
+tW8LYTx37+e0CwvfY1M4mfqjx0BLxw3e/L09TUyuraNdMFswHQYDVR0OBBYEFIxt
+l3XH28UoA3jO5MGUd8SBanuMMB8GA1UdIwQYMBaAFOr5mDv6+k679kNU3G6l2W8X
+ZaSBMAwGA1UdEwQFMAMBAf8wCwYDVR0PBAQDAgGmMAoGCCqGSM49BAMCA0cAMEQC
+IFCGvpt1G17joE8U3BBmPyFOr1d6RlO6JRF6o5zKkFCzAiBoSXQmKGIrWxmyIIgw
+dn2/z2OCzuYfmZs/mtz0XaS4gQ==
+-----END CERTIFICATE-----

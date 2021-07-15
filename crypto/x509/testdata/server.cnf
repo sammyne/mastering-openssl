@@ -1,0 +1,45 @@
+# @ref: https://stackoverflow.com/questions/21297139/how-do-you-sign-a-certificate-signing-request-with-your-certification-authority
+
+# @ref: https://www.openssl.org/docs/man1.1.1/man1/openssl-req.html
+[ req ]
+distinguished_name = server_distinguished_name
+x509_extensions    = server_extensions
+string_mask        = utf8only
+
+####################################################################
+[ server_distinguished_name ]
+countryName         = Country Name (2 letter code)
+countryName_default = CN
+
+stateOrProvinceName         = State or Province Name (full name)
+stateOrProvinceName_default = Guangdong
+
+localityName                = Locality Name (eg, city)
+localityName_default        = Shenzhen
+
+organizationName            = Organization Name (eg, company)
+organizationName_default    = sammyne
+
+#organizationalUnitName         = Organizational Unit (eg, division)
+#organizationalUnitName_default = Server Research Department
+
+commonName         = Common Name (e.g. server FQDN or YOUR name)
+commonName_default = sammyne-app
+
+emailAddress         = Email Address
+emailAddress_default = app@example.com
+
+####################################################################
+[ server_extensions ]
+
+authorityKeyIdentifier = keyid:always, issuer
+basicConstraints       = critical, CA:false
+keyUsage               = digitalSignature, keyEncipherment
+subjectKeyIdentifier   = hash
+subjectAltName         = @alt_names
+extendedKeyUsage       = serverAuth
+
+[ alt_names ] 
+DNS.1 = localhost
+IP.1  = 127.0.0.1
+IP.2  = 0.0.0.0
