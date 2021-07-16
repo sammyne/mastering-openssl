@@ -9,6 +9,12 @@ namespace sammyne::tools::errors {
 
 using namespace std;
 
+void report_openssl_error() {
+  auto err = ERR_get_error();
+  cout << "code = " << err << endl;
+  cout << ERR_reason_error_string(err) << endl;
+}
+
 bool check(int expected, int got, const string &hint = "") {
   auto ok = (got == expected);
   if (ok) {

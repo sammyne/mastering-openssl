@@ -1,47 +1,11 @@
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            4a:0f:5a:ed:21:a2:89:52:4b:44:19:04:2b:9c:9a:bd:aa:2e:06:74
-        Signature Algorithm: ecdsa-with-SHA256
-        Issuer: CN=sammyne-intermediate-CA
-        Validity
-            Not Before: Jul 15 09:13:44 2021 GMT
-            Not After : Jul 15 09:13:44 2022 GMT
-        Subject: CN=sammyne-app
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub:
-                    04:b8:7f:72:c0:2a:00:fe:35:a5:08:4c:db:d2:68:
-                    36:c0:d5:c5:32:01:46:20:7d:a3:b7:c8:52:89:95:
-                    76:17:d0:10:72:b9:fc:b7:27:3c:6e:cc:1c:99:48:
-                    cd:a4:95:8b:58:c9:88:ec:64:07:64:d9:d1:6a:04:
-                    d4:4b:c1:0b:a8
-                ASN1 OID: secp256k1
-        X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-                2E:4F:E8:CE:25:7A:85:94:BC:50:D7:F1:ED:5B:4E:AF:24:72:F6:24
-            X509v3 Authority Key Identifier: 
-                keyid:8C:6D:97:75:C7:DB:C5:28:03:78:CE:E4:C1:94:77:C4:81:6A:7B:8C
-
-            X509v3 Basic Constraints: 
-                CA:FALSE
-            X509v3 Key Usage: 
-                Digital Signature, Key Encipherment
-    Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:20:64:2b:ee:a7:33:d8:9f:a1:29:a4:ae:20:c0:4a:
-         ee:22:b3:ea:be:8a:40:6d:64:52:bb:1f:be:2f:d7:ed:83:5a:
-         02:21:00:ee:0c:4a:f8:f7:ac:0f:6d:80:4b:3f:46:b3:e1:e6:
-         12:69:71:b4:ad:2b:f3:da:87:70:57:b0:6f:61:39:a4:48
 -----BEGIN CERTIFICATE-----
-MIIBkTCCATegAwIBAgIUSg9a7SGiiVJLRBkEK5yavaouBnQwCgYIKoZIzj0EAwIw
-IjEgMB4GA1UEAwwXc2FtbXluZS1pbnRlcm1lZGlhdGUtQ0EwHhcNMjEwNzE1MDkx
-MzQ0WhcNMjIwNzE1MDkxMzQ0WjAWMRQwEgYDVQQDDAtzYW1teW5lLWFwcDBWMBAG
-ByqGSM49AgEGBSuBBAAKA0IABLh/csAqAP41pQhM29JoNsDVxTIBRiB9o7fIUomV
-dhfQEHK5/LcnPG7MHJlIzaSVi1jJiOxkB2TZ0WoE1EvBC6ijWjBYMB0GA1UdDgQW
-BBQuT+jOJXqFlLxQ1/HtW06vJHL2JDAfBgNVHSMEGDAWgBSMbZd1x9vFKAN4zuTB
-lHfEgWp7jDAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDAKBggqhkjOPQQDAgNIADBF
-AiBkK+6nM9ifoSmkriDASu4is+q+ikBtZFK7H74v1+2DWgIhAO4MSvj3rA9tgEs/
-RrPh5hJpcbStK/Pah3BXsG9hOaRI
+MIIBkDCCATegAwIBAgIUAX/ZGc44lJerC1sW14c19kdZnekwCgYIKoZIzj0EAwIw
+IjEgMB4GA1UEAwwXc2FtbXluZS1pbnRlcm1lZGlhdGUtQ0EwHhcNMjEwNzE1MTEz
+NzE4WhcNMjIwNzE1MTEzNzE4WjAWMRQwEgYDVQQDDAtzYW1teW5lLWFwcDBWMBAG
+ByqGSM49AgEGBSuBBAAKA0IABG2n28gity+V01oapjngmRCPvMeVkrOMWX1oh6Zo
+9FYdQJHnjZqIGm7Lj9muf9w4FeazAUwXK/jexfNwXIgcKZejWjBYMB0GA1UdDgQW
+BBT4qOc3c/Mx/A+OGEk4JseVDaMqsTAfBgNVHSMEGDAWgBRqtZ7uCl5By3kCO/Oz
+EGFVdkJL0TAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDAKBggqhkjOPQQDAgNHADBE
+AiBXL6i9MB/fSLaKUjJiBHV5TEujZnYRE89QArPchxifNgIgPIE4ePt9fs2ioLCk
+sCcqSFWWSBh1x6sH2FpXOiFvjzA=
 -----END CERTIFICATE-----

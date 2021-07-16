@@ -33,8 +33,9 @@ openssl req                             \
   -subj "/CN=sammyne"                   \
   -x509
 
-echo "show CA cert ..."
-openssl x509 -noout -text -in $caCert
+#echo "----------------"
+#echo "show CA cert ..."
+#openssl x509 -noout -text -in $caCert
 
 echo "create CA certs DB ..."
 touch ca-certs.db
@@ -42,32 +43,33 @@ touch ca-certs.db
 echo "--------------------------------"
 echo "fake CSR for intermediate CA ..."
 openssl req                             \
-  -config $intermediateCAConfig                 \
-  -keyout $intermediateCAKey                    \
+  -config $intermediateCAConfig         \
+  -keyout $intermediateCAKey            \
   -newkey ec                            \
   -nodes                                \
-  -out $intermediateCACSR                       \
+  -out $intermediateCACSR               \
   -pkeyopt ec_paramgen_curve:secp256k1  \
   -sha256                               \
   -subj "/CN=sammyne-intermediate-CA"
 
 echo "-----------------------------------"
 echo "signing cert for intermediateCA ..."
-yes | 
-openssl ca                \
-  -cert $caCert           \
-  -config $caConfig       \
-  -extensions signing_req \
-  -in $intermediateCACSR          \
-  -keyfile $caKey         \
-  -out $intermediateCACert        \
-  -outdir .               \
-  -policy signing_policy  \
+openssl ca                  \
+  -batch                    \
+  -cert $caCert             \
+  -config $caConfig         \
+  -extensions signing_req   \
+  -in $intermediateCACSR    \
+  -keyfile $caKey           \
+  -notext                   \
+  -out $intermediateCACert  \
+  -outdir .                 \
+  -policy signing_policy    \
   -rand_serial
 
-echo "------------------------"
-echo "show intermediate CA ..."
-openssl x509 -noout -text -in $intermediateCACert
+#echo "------------------------"
+#echo "show intermediate CA ..."
+#openssl x509 -noout -text -in $intermediateCACert
 
 echo "---------------------------"
 echo "fake CSR for server ..."
@@ -83,21 +85,22 @@ openssl req                             \
 
 echo "---------------------------"
 echo "signing cert for server ..."
-yes | 
-openssl ca                \
-  -cert $intermediateCACert           \
-  -config $intermediateCAConfig       \
-  -extensions signing_req \
-  -in $serverCSR          \
-  -keyfile $intermediateCAKey         \
-  -out $serverCert        \
-  -outdir .               \
-  -policy signing_policy  \
+openssl ca                      \
+  -batch                        \
+  -cert $intermediateCACert     \
+  -config $intermediateCAConfig \
+  -extensions signing_req       \
+  -in $serverCSR                \
+  -keyfile $intermediateCAKey   \
+  -notext                       \
+  -out $serverCert              \
+  -outdir .                     \
+  -policy signing_policy        \
   -rand_serial
 
-echo "------------------------"
-echo "show server CA ..."
-openssl x509 -noout -text -in $serverCert
+#echo "------------------------"
+#echo "show server CA ..."
+#openssl x509 -noout -text -in $serverCert
 
 echo "---------------------"
 echo "verify cert chain ..."
