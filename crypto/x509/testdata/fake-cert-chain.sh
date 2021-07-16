@@ -48,7 +48,7 @@ openssl req                             \
   -newkey ec                            \
   -nodes                                \
   -out $intermediateCACSR               \
-  -pkeyopt ec_paramgen_curve:secp256k1  \
+  -pkeyopt ec_paramgen_curve:sm2  \
   -sha256                               \
   -subj "/CN=sammyne-intermediate-CA"
 
@@ -79,7 +79,7 @@ openssl req                             \
   -newkey ec                            \
   -nodes                                \
   -out $serverCSR                       \
-  -pkeyopt ec_paramgen_curve:secp256k1  \
+  -pkeyopt ec_paramgen_curve:sm2  \
   -sha256                               \
   -subj "/CN=sammyne-app"
 
