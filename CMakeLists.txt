@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.13)
 
 PROJECT (openssl-hello-world)
 
@@ -6,14 +6,15 @@ set(CMAKE_CXX_STANDARD 17)
 
 # 3rd_party dependencies
 include(cmake/openssl.cmake)
-include(cmake/cppcodec.cmake)
+
+set(ministdDir ${CMAKE_CURRENT_SOURCE_DIR}/ministd)
 
 include_directories(
-  ${CPPCODEC_INCLUDE_DIRECTORIES}
   ${OPENSSL_INCLUDE_DIRECTORIES}
+  ${ministdDir}/include
 )
 
-link_directories(${OPENSSL_LINK_DIRECTORIES})
+add_subdirectory(${ministdDir})
 
 #add_subdirectory(ssl)
 add_subdirectory(crypto)
